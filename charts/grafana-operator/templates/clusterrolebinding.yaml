@@ -1,0 +1,20 @@
+{{- if and .Values.rbac.create .Values.dataSource.enabled }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: grafana-operator
+    app.kubernetes.io/name: {{ include "Release.Namespace" . }}-grafana-operator
+    app.kubernetes.io/part-of: {{ include "Release.Namespace" . }}
+  name: {{ include "grafana-operator.fullname" . }}-prometheus-access
+
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccount.name }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ .Values.rbac.clusterRoleName }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

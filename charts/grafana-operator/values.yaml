@@ -1,0 +1,35 @@
+# Default values for grafana-operator chart.
+# These can be overridden using Helm's --set or by editing this file.
+
+subscription:
+  enabled: true
+  channel: alpha
+  name: grafana-operator
+  source: community-operators
+  sourceNamespace: openshift-marketplace
+  installPlanApproval: Automatic
+
+operatorGroup:
+  create: true
+  name: grafana-operator-group
+
+grafanaInstance:
+  name: example-grafana
+  dashboardLabel: "grafana_dashboard"
+  resources: {}
+
+dataSource:
+  enabled: true
+  name: prometheus-grafanadatasource
+  url: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
+  isDefault: true
+  tlsSkipVerify: true
+  timeInterval: 15s
+
+serviceAccount:
+  create: true
+  name: grafana-serviceaccount
+
+rbac:
+  create: true
+  clusterRoleName: view

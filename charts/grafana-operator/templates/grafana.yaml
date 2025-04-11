@@ -1,0 +1,24 @@
+{{- if .Values.subscription.enabled }}
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: {{ .Values.grafanaInstance.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  serviceAccountName: {{ .Values.serviceAccount.name }}
+  config:
+    log:
+      level: info
+    auth:
+      disable_login_form: false
+      disable_signout_menu: false
+
+  # Label-based dashboard selector
+  dashboardLabelSelector:
+    - matchLabelExpressions:
+      - {{ .Values.grafanaInstance.dashboardLabel }}
+
+  resources:
+{{ toYaml .Values.grafanaInstance.resources | indent 4 }}
+{{- end }}
