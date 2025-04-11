@@ -5,8 +5,9 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: grafana-operator
-    app.kubernetes.io/name: {{ include "Release.Namespace" . }}-grafana-operator
-    app.kubernetes.io/part-of: {{ include "Release.Namespace" . }}
+    # Replace 'include "Release.Namespace" .' with direct .Release.Namespace
+    app.kubernetes.io/name: {{ .Release.Namespace }}-grafana-operator
+    app.kubernetes.io/part-of: {{ .Release.Namespace }}
   name: {{ include "grafana-operator.fullname" . }}-prometheus-access
 
 subjects:
