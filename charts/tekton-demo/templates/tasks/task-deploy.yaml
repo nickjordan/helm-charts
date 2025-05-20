@@ -25,7 +25,7 @@ spec:
       type: string
   steps:
     - name: app-create
-      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:7ea824531b593b2ec0da05557d5cd2565c3525c51c9007f85e9510b27f38b13f
+      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:bc35a9fc663baf0d6493cc57e89e77a240a36c43cf38fb78d8e61d3b87cf5cc5
       script: |
         #!/bin/sh
         if [ "$(inputs.params.revision-type)" == "feature" ] || [ "$(inputs.params.revision-type)" == "develop" ]; then
@@ -51,7 +51,7 @@ spec:
         fi
 
     - name: app-docs
-      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:7ea824531b593b2ec0da05557d5cd2565c3525c51c9007f85e9510b27f38b13f
+      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:bc35a9fc663baf0d6493cc57e89e77a240a36c43cf38fb78d8e61d3b87cf5cc5
       script: |
         #!/bin/sh
         if [ "$(inputs.params.revision-type)" == "develop" ]; then
@@ -72,7 +72,7 @@ spec:
         fi
 
     - name: app-expose
-      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:7ea824531b593b2ec0da05557d5cd2565c3525c51c9007f85e9510b27f38b13f
+      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:bc35a9fc663baf0d6493cc57e89e77a240a36c43cf38fb78d8e61d3b87cf5cc5
       script: |
         #!/bin/sh
         if [ "$(inputs.params.revision-type)" == "feature" ] || [ "$(inputs.params.revision-type)" == "develop" ]; then
@@ -86,7 +86,7 @@ spec:
             appname={{ .Values.application.name }}-$revisionName
             # overwrite hostname
             hostname=$revisionName-{{ .Values.application.environments.development }}.{{ .Values.cluster }}
-            
+
             # documentation development route
             documentation={{ .Values.application.name }}-documentation-{{ .Values.application.environments.development }}.{{ .Values.cluster }}
             oc get route/{{ .Values.application.name }}-documentation -n {{ .Values.application.environments.development }}
@@ -130,20 +130,20 @@ spec:
         fi
 
     - name: app-labels
-      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:7ea824531b593b2ec0da05557d5cd2565c3525c51c9007f85e9510b27f38b13f
+      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:bc35a9fc663baf0d6493cc57e89e77a240a36c43cf38fb78d8e61d3b87cf5cc5
       script: |
         #!/bin/sh
         if [ "$(inputs.params.revision-type)" == "feature" ] || [ "$(inputs.params.revision-type)" == "develop" ]; then
 
           replace=$(inputs.params.revision-name)
-          revisionName=${replace//./-} # replace . to / 
+          revisionName=${replace//./-} # replace . to /
           appname={{ .Values.application.name }}-$(inputs.params.revision-type)-$revisionName
 
           if [ "$(inputs.params.revision-type)" == "develop" ]; then
             # overwrite appname structure
             appname={{ .Values.application.name }}-$revisionName
           fi
-        
+
 
         else
           echo "Branch type $(inputs.params.revision-type) does not deploy to development"
@@ -151,14 +151,14 @@ spec:
         fi
 
     - name: app-envs
-      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:7ea824531b593b2ec0da05557d5cd2565c3525c51c9007f85e9510b27f38b13f
+      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:bc35a9fc663baf0d6493cc57e89e77a240a36c43cf38fb78d8e61d3b87cf5cc5
       script: |
         #!/bin/sh
         replace=$(inputs.params.revision-name)
         revisionName=${replace//./-}
         appname={{ .Values.application.name }}-$(inputs.params.revision-type)-$revisionName
         environment={{ .Values.application.environments.development }}
-        
+
         if [ "$(inputs.params.revision-type)" == "feature" ] || [ "$(inputs.params.revision-type)" == "develop" ]; then
 
           if [ "$(inputs.params.revision-type)" == "develop" ]; then
@@ -169,7 +169,7 @@ spec:
             oc set env deployment/$appname --overwrite revision-id=$(inputs.params.revision-short) -n $environment
             oc set env deployment/$appname --overwrite revision-name=$revisionName -n $environment
           fi
-          
+
           oc set env deployment/$appname --overwrite environment=development -n $environment
           oc set env deployment/$appname --overwrite revision-type=$(inputs.params.revision-type) -n $environment
           oc set env deployment/$appname --list -n $environment
@@ -180,7 +180,7 @@ spec:
         fi
 
     - name: app-probes
-      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:7ea824531b593b2ec0da05557d5cd2565c3525c51c9007f85e9510b27f38b13f
+      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:bc35a9fc663baf0d6493cc57e89e77a240a36c43cf38fb78d8e61d3b87cf5cc5
       script: |
         #!/bin/sh
         if [ "$(inputs.params.revision-type)" == "feature" ] || [ "$(inputs.params.revision-type)" == "develop" ]; then
@@ -203,7 +203,7 @@ spec:
         fi
 
     - name: app-autoscale
-      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:7ea824531b593b2ec0da05557d5cd2565c3525c51c9007f85e9510b27f38b13f
+      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:bc35a9fc663baf0d6493cc57e89e77a240a36c43cf38fb78d8e61d3b87cf5cc5
       script: |
         #!/bin/sh
 
@@ -235,7 +235,7 @@ spec:
         fi
 
     - name: app-triggers
-      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:7ea824531b593b2ec0da05557d5cd2565c3525c51c9007f85e9510b27f38b13f
+      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:bc35a9fc663baf0d6493cc57e89e77a240a36c43cf38fb78d8e61d3b87cf5cc5
       script: |
         #!/bin/sh
         if [ "$(inputs.params.revision-type)" == "feature" ] || [ "$(inputs.params.revision-type)" == "develop" ]; then

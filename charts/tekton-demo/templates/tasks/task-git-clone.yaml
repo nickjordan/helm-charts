@@ -155,7 +155,7 @@ spec:
         echo -n "$(params.url)" > $(results.url.path)
 
     - name: variables
-      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:7ea824531b593b2ec0da05557d5cd2565c3525c51c9007f85e9510b27f38b13f
+      image: registry.redhat.io/openshift4/ose-cli:latest@sha256:bc35a9fc663baf0d6493cc57e89e77a240a36c43cf38fb78d8e61d3b87cf5cc5
       resources: {}
       script: |
         #!/bin/sh
@@ -203,7 +203,7 @@ spec:
 
         if [ ! -f $package ]; then
             echo "Missing package.json"
-            exit 1 
+            exit 1
         fi
 
         # verify if it's not a tag webhook event
@@ -226,7 +226,7 @@ spec:
         | head -1 \
         | awk -F: '{ print $2 }' \
         | sed 's/[",]//g')
-        
+
         before=$(echo -e $before)
         # hack for first version to be upgraded as major
         if [ "$before" == "0.0.0" ]; then

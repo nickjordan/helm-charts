@@ -42,7 +42,7 @@ helm install my-jenkins -f my-values.yaml redhat-cop/jenkins
 
 ## 🏃‍♂️💨 Chart linting
 
-Before adding a chart to this repo, make sure there is no linting issues, otherwise the PR actions will fail. 
+Before adding a chart to this repo, make sure there is no linting issues, otherwise the PR actions will fail.
 We use both the integrated [`helm lint`](https://helm.sh/docs/helm/helm_lint/) command and the [`chart testing`](https://github.com/helm/chart-testing/blob/master/doc/ct_lint.md) tool.
 
 ```bash
@@ -75,3 +75,15 @@ For more info on each chart checkout these!
 * [static-site](/charts/static-site)
 * [tekton-demo](/charts/tekton-demo)
 * [operators-installer](/charts/operators-installer)
+
+## [pre-commit](.pre-commit-config.yaml)
+
+Pre-commit is enabled which will lint and cleanup any files automatically.
+Token and secret checking via [Red Hat Security tooling](https://source.redhat.com/departments/it/it-information-security/leaktk/leaktk_components/rh_pre_commit) is enabled
+but requires being connected to the Red Hat VPN on the setup.
+
+The pre-commit hooks can be run manually via:
+
+```bash
+pre-commit run --all
+```
